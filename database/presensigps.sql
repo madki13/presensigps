@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 03 Nov 2023 pada 15.13
+-- Waktu pembuatan: 06 Nov 2023 pada 13.49
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -41,7 +41,7 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`nik`, `nama_lenkap`, `jabatan`, `no_hp`, `password`, `remember_token`) VALUES
-('12345', 'zaki', 'driver', '08123456789', '$2y$10$n2y9jwcm5IewJF9YpnteSu8CfuxnVc9A8Dl4kTiJVVMKgWz.UXuDy', NULL);
+('12345', 'zaki', 'driver', '08123456789', '$2a$12$cKIW9MloLEvwAktEBkYom.S.txBaiExVMrtwa4mjKOow6Ayh5MlAu', NULL);
 
 -- --------------------------------------------------------
 
