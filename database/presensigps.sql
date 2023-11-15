@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 14 Nov 2023 pada 14.04
--- Versi server: 8.0.30
--- Versi PHP: 8.1.10
+-- Generation Time: Nov 15, 2023 at 04:24 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `karyawan`
+-- Table structure for table `karyawan`
 --
 
 CREATE TABLE `karyawan` (
@@ -37,7 +37,7 @@ CREATE TABLE `karyawan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `karyawan`
+-- Dumping data for table `karyawan`
 --
 
 INSERT INTO `karyawan` (`nik`, `nama_lenkap`, `jabatan`, `no_hp`, `password`, `remember_token`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `karyawan` (`nik`, `nama_lenkap`, `jabatan`, `no_hp`, `password`, `r
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `presensi`
+-- Table structure for table `presensi`
 --
 
 CREATE TABLE `presensi` (
@@ -62,16 +62,24 @@ CREATE TABLE `presensi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `presensi`
+-- Dumping data for table `presensi`
 --
 
 INSERT INTO `presensi` (`id`, `nik`, `tgl_presensi`, `jam_in`, `jam_out`, `foto_in`, `foto_out`, `lokasi_in`, `lokasi_out`) VALUES
-(NULL, '12345', '2023-11-14', '14:02:24', NULL, '12345-2023-11-14.png', NULL, '-6.2193386,106.8384621', NULL);
+(NULL, '12345', '2023-11-14', '14:02:24', NULL, '12345-2023-11-14.png', NULL, '-6.2193386,106.8384621', NULL),
+(NULL, '12345', '2023-11-15', '03:04:03', NULL, '12345-2023-11-15.png', NULL, '-6.2801486,107.0121561', NULL),
+(NULL, '12345', '2023-11-15', '10:10:04', NULL, '12345-2023-11-15.png', NULL, '-6.2801536,107.0121229', NULL),
+(NULL, '12345', '2023-11-15', '10:20:51', NULL, '12345-2023-11-15.png', NULL, '-6.2801365,107.0121418', NULL),
+(NULL, '12345', '2023-11-15', '10:22:32', NULL, '12345-2023-11-15.png', NULL, '-6.2801365,107.0121418', NULL),
+(NULL, '12345', '2023-11-15', '10:22:43', NULL, '12345-2023-11-15.png', NULL, '-6.2801365,107.0121418', NULL),
+(NULL, '12345', '2023-11-15', '10:25:49', NULL, '12345-2023-11-15.png', NULL, '-6.2801409,107.0121434', NULL),
+(NULL, '12345', '2023-11-15', '10:26:46', NULL, '12345-2023-11-15.png', NULL, '-6.2801371,107.0121407', NULL),
+(NULL, '12345', '2023-11-15', '10:28:30', NULL, '12345-2023-11-15.png', NULL, '-6.2801365,107.0121418', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -90,18 +98,18 @@ CREATE TABLE `users` (
 --
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
