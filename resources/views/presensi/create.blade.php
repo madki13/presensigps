@@ -38,10 +38,17 @@
     </div>
     <div class="row">
         <div class="col">
+            @if ($cek > 0)
+            <button id="takeabsen" class="btn btn-danger btn-block">
+                <ion-icon name="camera-outline"></ion-icon>
+                Absen pulang
+            </button>
+            @else
             <button id="takeabsen" class="btn btn-primary btn-block">
                 <ion-icon name="camera-outline"></ion-icon>
                 Absen Masuk
             </button>
+            @endif
         </div>
     </div>
     <div class="row mt-2">
@@ -87,25 +94,34 @@
 
         }
 
-        $("#takeabsen").click(function(e){
-            Webcam.snap(function(uri){
+        $("#takeabsen").click(function(e) {
+            Webcam.snap(function(uri) {
                 image = uri;
             });
             var lokasi = $("#lokasi").val();
             $.ajax({
-                type:'POST',
-                url:'/presensi/store',
-                data:{
-                    _token:"{{ csrf_token() }}",
-                    image:image,
-                    lokasi:lokasi
+                type: 'POST',
+                url: '/presensi/store',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    image: image,
+                    lokasi: lokasi
                 },
-                cache:false,
-                success:function(respond){
+                cache: false,
+                success: function(respond) {
                     if (respond == 0) {
-                        alert('success');
-                    }else {
-                        alert('error');
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Kerja Bagus',
+                            icon: 'success',
+                        })
+                        setTimeout("location.href='/dashboard'", 3000);
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Gagal Absen, Silakan Hubungi IT',
+                            icon: 'error',
+                        })
                     }
                 }
             });

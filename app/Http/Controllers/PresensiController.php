@@ -11,7 +11,10 @@ class PresensiController extends Controller
 {
     public function create()
     {
-        return view('presensi.create');
+        $hariini = date("Y-m-d");
+        $nik = Auth::guard('karyawan')->user()->nik;
+        $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('nik', $nik)->count();
+        return view('presensi.create', compact('cek'));
     }
 
     public function store(Request $request){
