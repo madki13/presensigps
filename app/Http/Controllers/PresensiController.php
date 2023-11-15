@@ -17,7 +17,8 @@ class PresensiController extends Controller
         return view('presensi.create', compact('cek'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $nik = Auth::guard('karyawan')->user()->nik;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
@@ -25,23 +26,40 @@ class PresensiController extends Controller
         $image = $request->image;
         $folderPath = "public/uploads/absensi/";
         $formatName = $nik . "-" . $tgl_presensi;
-        $image_parts = explode(";base64",$image);
+        $image_parts = explode(";base64", $image);
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = $formatName . ".png";
         $file = $folderPath . $fileName;
-        $data= [
-            'nik' => $nik,
-            'tgl_presensi' => $tgl_presensi,
-            'jam_in' => $jam,
-            'foto_in' => $fileName,
-            'lokasi_in' => $lokasi
-        ];
-        $simpan = DB::table('presensi')->insert($data);
-        if ($simpan){
-            echo 0;
-            Storage::put($file, $image_base64);
-        }else{
-            echo 1;
+
+        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik)->count();
+        if ($cek > 0) {
+            $data_pulang = [
+                'jam_out' => $jam,
+                'foto_out' => $fileName,
+                'lokasi_out' => $lokasi
+            ];
+            $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik)->update($data_pulang);
+            if ($update) {
+                echo "success|Terimakasih, Hati-Hati dijalan|out";
+                Storage::put($file, $image_base64);
+            } else {
+                echo "error|Maaf gagal absen, Hubungi Tim IT|out";
+            }
+        } else {
+            $data = [
+                'nik' => $nik,
+                'tgl_presensi' => $tgl_presensi,
+                'jam_in' => $jam,
+                'foto_in' => $fileName,
+                'lokasi_in' => $lokasi
+            ];
+            $simpan = DB::table('presensi')->insert($data);
+            if ($simpan) {
+                echo "success|Terimakasih, Selamat Bekerja|in";
+                Storage::put($file, $image_base64);
+            } else {
+                echo "error|Maaf gagal absen, Hubungi Tim IT|in";
+            }
         }
     }
 }

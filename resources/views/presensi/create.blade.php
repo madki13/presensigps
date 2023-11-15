@@ -109,10 +109,11 @@
                 },
                 cache: false,
                 success: function(respond) {
-                    if (respond == 0) {
+                var status = respond.split("|");
+                    if (status[0] == "success") {
                         Swal.fire({
                             title: 'Berhasil!',
-                            text: 'Kerja Bagus',
+                            text: status[1],
                             icon: 'success',
                         })
                         setTimeout("location.href='/dashboard'", 3000);
