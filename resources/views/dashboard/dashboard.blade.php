@@ -3,7 +3,14 @@
     <div class="section" id="user-section">
         <div id="user-detail">
             <div class="avatar">
-                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+                @if (!empty(Auth::guard('karyawan')->user()->foto))
+                    @php
+                        $path = Storage::url('uploads/karyawan/' . Auth::guard('karyawan')->user()->foto);
+                    @endphp
+                    <img src="{{ url($path) }}" alt="avatar" class="imaged w64" style="60px">
+                @else
+                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+                @endif
             </div>
             <div id="user-info">
                 <h2 id="user-name">Adam Abdi Al A'la</h2>
@@ -187,8 +194,9 @@
                                     </div>
                                     <div class="in">
                                         <div>{{ date('d-m-Y', strtotime($d->tgl_presensi)) }}</div>
-                                        <span class="badge badge-success">{{ $d->jam_in}}</span>
-                                        <span class="badge badge-danger">{{ $presensihariini != null && $d->jam_out != null ? $d->jam_out : 'belum absen'}}</span>
+                                        <span class="badge badge-success">{{ $d->jam_in }}</span>
+                                        <span
+                                            class="badge badge-danger">{{ $presensihariini != null && $d->jam_out != null ? $d->jam_out : 'belum absen' }}</span>
                                     </div>
                                 </div>
                             </li>
