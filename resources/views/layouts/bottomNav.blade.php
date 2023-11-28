@@ -5,13 +5,13 @@
             <strong>Home</strong>
         </div>
     </a>
-    <a href="#" class="item">
+    <a href="#" class="item {{ request()->is('presensi/histori') ? 'active' : '' }}" >
         <div class="col">
             <ion-icon name="document-text-outline" role="img" class="md hydrated" aria-label="document text outline"></ion-icon>
             <strong>Histori</strong>
         </div>
     </a>
-    <a href="/presensi/create" class="item">
+    <a href="/presensi/create" class="item ">
         <div class="col">
             <div class="action-button large">
                 <ion-icon name="camera" role="img" class="md hydrated" aria-label="add outline"></ion-icon>
@@ -24,7 +24,7 @@
             <strong>Docs</strong>
         </div>
     </a>
-    <a href="/editprofile" class="item">
+    <a href="/editprofile" class="item {{ request()->is('editprofile') ? 'active' : '' }}">
         <div class="col">
             <ion-icon name="people-outline" role="img" class="md hydrated" aria-label="people outline"></ion-icon>
             <strong>Profile</strong>
