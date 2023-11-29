@@ -185,4 +185,20 @@ class PresensiController extends Controller
             return Redirect::back()->with(['error' => 'Yah.. Update datanya gagal ^_^!']);
         }
     }
+
+
+    public function histori()
+    {
+        $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
+        "November", "Desember"];
+        return view('presensi.histori', compact('namabulan'));
+    }
+
+    public function gethistori(Request $request)
+    {
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
+        echo $bulan . "dan" . $tahun;
+    }
 }
