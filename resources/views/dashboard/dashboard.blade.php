@@ -16,7 +16,7 @@
                 {{-- <h2 id="user-name">Adam Abdi Al A'la</h2>
                 <span id="user-role">Head of IT</span> --}}
                 <h2 id="user-name">{{ Auth::guard('karyawan')->user()->nama_lengkap }}</h2>
-                <span id="user-role">{{ Auth::guard('karyawan')->user()->jabatan }}</span>  
+                <span id="user-role">{{ Auth::guard('karyawan')->user()->jabatan }}</span>
             </div>
         </div>
     </div>
@@ -119,9 +119,9 @@
             </div>
         </div>
 
-        <div id="rekappresensi">
+        {{-- <div id="rekappresensi">
             <h3>Rekap Presensi Bulan {{ $namabulan[$bulanini] }} Tahun {{ $tahunini }}</h3>
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height:0.8rem">
@@ -165,8 +165,10 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
-        </div>
+            </div>
+        </div> --}}
+
+
         <div class="presencetab mt-2">
             <div class="tab-pane fade show active" id="pilled" role="tabpanel">
                 <ul class="nav nav-tabs style1" role="tablist">
@@ -208,51 +210,23 @@
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel">
                     <ul class="listview image-listview">
+                        @foreach ($leaderboard as $l)
                         <li>
                             <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                                <img src="{{asset('assets/img/sample/avatar/avatar1.jpg')}}" alt="image" class="image">
                                 <div class="in">
-                                    <div>Edward Lindgren</div>
-                                    <span class="text-muted">Designer</span>
+                                    <div>{{$l->nama_lengkap}}<br>
+                                    <small>{{$l->jabatan}}</small>
+                                    </div>
+                                    <div><span class="badge badge-success">IN {{$l->keterangan_in}}- {{$l->jam_in}}</span><br>
+                                    <span class="badge badge-danger">OUT {{ $presensihariini != NULL && $l->keterangan_out != NULL ? $l->keterangan_out : ''}}- {{ $presensihariini != NULL && $l->jam_out != NULL ? $l->jam_out : 'Belum Laporan'}}</span></div>
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Emelda Scandroot</div>
-                                    <span class="badge badge-primary">3</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Henry Bove</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Henry Bove</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Henry Bove</div>
-                                </div>
-                            </div>
-                        </li>
+                        @endforeach
+
                     </ul>
                 </div>
-
             </div>
         </div>
     </div>

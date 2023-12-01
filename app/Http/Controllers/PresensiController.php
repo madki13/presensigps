@@ -26,8 +26,8 @@ class PresensiController extends Controller
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         $jam_image = date("H-i-s");
-        $latitudekantor = -6.280147400023396;
-        $longitudekantor = 107.01215110068755;
+        $latitudekantor = -6.219299195442052;
+        $longitudekantor = 106.83845796293132;
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
         $latitudeuser = $lokasiuser[0];
@@ -189,9 +189,21 @@ class PresensiController extends Controller
 
     public function histori()
     {
-        $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
-        "November", "Desember"];
-        return view('presensi.histori', compact('namabulan'));
+        $hari_ini = date("Y-m-d");
+        $hari = date("d");
+        $bulan_ini = date("m");
+        $tahun_ini = date("Y");
+        $nik = Auth::guard('karyawan')->user()->nik;
+        $presensi_hari_ini = DB::table('presensi')->where('nik', $nik)->where('tgl_presensi', $hari_ini)->latest();
+        $karyawan = DB::table('karyawan')->where('nik', $nik)->first();
+        $history_hari_ini = DB::table('presensi')->where('nik', $nik)
+            ->whereRaw('DAY(tgl_presensi)= "' . $hari . '"')
+            ->whereRaw('MONTH(tgl_presensi)="' . $bulan_ini . '"')
+            ->whereRaw('YEAR(tgl_presensi)="' . $tahun_ini . '"')
+            ->orderBy('tgl_presensi')
+            ->get()
+            ->sortBy('jam_in');
+        return view('presensi.histori', compact('presensi_hari_ini', 'karyawan', 'history_hari_ini'));
     }
 
     public function gethistori(Request $request)

@@ -12,6 +12,7 @@ class DashboardController extends Controller
     {
 
         $hariini = date("Y-m-d");
+        $hari = date("d");
         $bulanini = date("m") * 1;
         $tahunini = date("Y");
         $nik = Auth::guard('karyawan')->user()->nik;
@@ -30,8 +31,31 @@ class DashboardController extends Controller
         //     ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
         //     ->first();
 
+        $history_hari_ini = DB::table('presensi')->where('nik', $nik)
+        ->whereRaw('DAY(tgl_presensi)= "' . $hari . '"')
+        ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
+        ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
+        ->orderBy('tgl_presensi')
+        ->get()
+        ->sortByDesc('jam_in');
+
+        $leaderboard = DB::table('presensi')
+        ->join('karyawan', 'presensi.nik', '=', 'karyawan.nik')
+        ->where('tgl_presensi', $hariini)
+        ->orderBy('jam_in')
+        ->get();
+
+        $rekap_presensi = DB::table('presensi')
+        ->selectRaw('COUNT(nik) as jmlhadir')
+        ->whereRaw('DAY(tgl_presensi)= "' . $hari . '"')
+        ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
+        ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
+        ->first();
+
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Agustus", "September", "Oktober", "November", "Desember"];
-        return view('dashboard.dashboard', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini'));
+        return view('dashboard.dashboard', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini','leaderboard'));
+
+
     }
 
     public function  dashboardadmin(){
