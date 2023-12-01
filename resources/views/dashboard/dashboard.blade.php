@@ -15,6 +15,20 @@
             <div id="user-info">
                 {{-- <h2 id="user-name">Adam Abdi Al A'la</h2>
                 <span id="user-role">Head of IT</span> --}}
+
+                <style type="text/css">
+                    #p {
+                        color: #FFFFFF;
+                        font-size: 20px;
+                        font-weight: bold;
+                        font-family: Cursive, Lucida-Handwriting;
+                        font-style: oblique;
+                    }
+                </style>
+                <span id="user-role">
+                    <p id="p">
+                        {{ $salam }}</p>
+                </span>
                 <h2 id="user-name">{{ Auth::guard('karyawan')->user()->nama_lengkap }}</h2>
                 <span id="user-role">{{ Auth::guard('karyawan')->user()->jabatan }}</span>
             </div>
