@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 28, 2023 at 08:20 AM
+-- Generation Time: Dec 01, 2023 at 10:04 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -42,7 +42,9 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`nik`, `nama_lengkap`, `jabatan`, `no_hp`, `password`, `remember_token`, `foto`) VALUES
-('12345', 'zaki', 'driver', '08123456789', '$2y$10$BhxnuMTSwkD9pqdOkE8tsu12rhcw3pLG2Le8lcPGX51chP5o/wAG.', NULL, '12345.png');
+('12345', 'zaki123', 'driver', '08123456789', '$2y$10$IhrtYCQIZowxJcTLjqsmx.o/mjonVsTtJBgZtZ8sQewOMr8vU5ZkG', NULL, '12345.png'),
+('6789', 'latip', 'driver', '08987654321', '123', NULL, NULL),
+('123', '123', 'driver', '081111111111', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -70,7 +72,10 @@ CREATE TABLE `presensi` (
 
 INSERT INTO `presensi` (`id`, `nik`, `tgl_presensi`, `jam_in`, `jam_out`, `foto_in`, `foto_out`, `lokasi_in`, `lokasi_out`, `keterangan_in`, `keterangan_out`) VALUES
 (NULL, '12345', '2023-11-27', '18:27:38', '22:32:27', '12345-2023-11-27-18-27-38.png', '12345-2023-11-27-22-32-27.png', '-6.2193301,106.8384543', '-6.2193301,106.8384543', NULL, NULL),
-(NULL, '12345', '2023-11-28', '11:48:38', '11:48:54', '12345-2023-11-28-11-48-38.png', '12345-2023-11-28-11-48-54.png', '-6.2801385,107.0121592', '-6.2801385,107.0121592', NULL, NULL);
+(NULL, '12345', '2023-11-28', '11:48:38', '11:48:54', '12345-2023-11-28-11-48-38.png', '12345-2023-11-28-11-48-54.png', '-6.2801385,107.0121592', '-6.2801385,107.0121592', NULL, NULL),
+(NULL, '12345', '2023-11-29', '13:18:31', '16:01:03', '12345-2023-11-29-13-18-31.png', '12345-2023-11-29-16-01-03.png', '-6.2801555,107.012161', '-6.2801489,107.0121645', NULL, NULL),
+(NULL, '12345', '2023-12-01', '08:20:03', '08:28:02', '12345-2023-12-01-08-20-03.png', '12345-2023-12-01-08-28-02.png', '-6.2193256,106.8384605', '-6.2193299,106.838461', NULL, NULL),
+(NULL, '123', '2023-12-01', '14:19:55', '14:20:06', '123-2023-12-01-14-19-55.png', '123-2023-12-01-14-20-06.png', '-6.2193276,106.8384609', '-6.2193276,106.8384609', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -88,6 +93,13 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'zaki', '123@gmail.com', NULL, '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -108,7 +120,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
