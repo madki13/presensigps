@@ -26,8 +26,8 @@ class PresensiController extends Controller
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         $jam_image = date("H-i-s");
-        $latitudekantor = -6.219299195442052;
-        $longitudekantor = 106.83845796293132;
+        $latitudekantor = -6.193335474147274;
+        $longitudekantor = 106.84939440391909;
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
         $latitudeuser = $lokasiuser[0];
@@ -212,5 +212,23 @@ class PresensiController extends Controller
         $tahun = $request->tahun;
 
         echo $bulan . "dan" . $tahun;
+    }
+
+    public function monitoring()
+    {
+        $sapa = "";
+        $time = date('H:i:s');
+        if ($time >= '03:00:00' && $time <= '10:00:59') {
+            $sapa = 'Selamat Pagi';
+            // $time_kerja = 'Masuk';
+        } elseif ($time >= '10:01:00' && $time <= '15:00:59') {
+            $sapa = 'Selamat Siang';
+            // $time_kerja = 'Pulang';
+        } elseif ($time >= '15:01:00' && $time <= '18:00:59') {
+            $sapa = 'Selamat Sore';
+        } else {
+            $sapa = 'Selamat Malam';
+        }
+        return view('presensi.monitoring', compact('sapa'));
     }
 }

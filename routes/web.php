@@ -58,5 +58,8 @@ Route::middleware(['auth:user'])->group(function(){
 
     //karyawann
     Route::get('/karyawan', [karyawanController::class, 'index']);
+
+    //Presensi
+    Route::get('/presensi/monitoring', [PresensiController::class, 'monitoring']);
 });
 
