@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 01, 2023 at 10:04 AM
+-- Generation Time: Dec 02, 2023 at 04:48 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -24,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `divisi`
+--
+
+CREATE TABLE `divisi` (
+  `kode_divisi` char(3) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_divisi` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `divisi`
+--
+
+INSERT INTO `divisi` (`kode_divisi`, `nama_divisi`) VALUES
+('IT', 'Teknologi Informasi'),
+('MJM', 'Manajemen'),
+('MKT', 'Marketing');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `karyawan`
 --
 
@@ -34,17 +54,19 @@ CREATE TABLE `karyawan` (
   `no_hp` varchar(13) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `remember_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `foto` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `foto` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kode_divisi` char(3) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `karyawan`
 --
 
-INSERT INTO `karyawan` (`nik`, `nama_lengkap`, `jabatan`, `no_hp`, `password`, `remember_token`, `foto`) VALUES
-('12345', 'zaki123', 'driver', '08123456789', '$2y$10$IhrtYCQIZowxJcTLjqsmx.o/mjonVsTtJBgZtZ8sQewOMr8vU5ZkG', NULL, '12345.png'),
-('6789', 'latip', 'driver', '08987654321', '123', NULL, NULL),
-('123', '123', 'driver', '081111111111', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL);
+INSERT INTO `karyawan` (`nik`, `nama_lengkap`, `jabatan`, `no_hp`, `password`, `remember_token`, `foto`, `kode_divisi`) VALUES
+('12345', 'zaki123', 'driver', '08123456789', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, '12345.png', 'IT'),
+('6789', 'latip', 'driver', '08987654321', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'IT'),
+('123', '123', 'driver', '081111111111', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'MKT'),
+('1112', 'citra', 'IT', '082222222', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'IT');
 
 -- --------------------------------------------------------
 
@@ -104,6 +126,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `divisi`
+--
+ALTER TABLE `divisi`
+  ADD PRIMARY KEY (`kode_divisi`);
 
 --
 -- Indexes for table `users`
