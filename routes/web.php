@@ -54,6 +54,7 @@ Route::middleware(['auth:karyawan'])->group(function () {
 
 Route::middleware(['auth:user'])->group(function(){
     Route::get('/proseslogoutadmin', [AuthController::class, 'proseslogoutadmin']);
+    Route::get('/pindahkeuser', [AuthController::class, 'pindahkeuser']);
     Route::get('/panel/dashboardadmin', [DashboardController::class, 'dashboardadmin']);
 
     //karyawann

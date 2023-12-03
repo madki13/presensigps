@@ -174,8 +174,9 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <a href="./settings.html" class="dropdown-item">Settings</a>
-                    <a href="./sign-in.html" class="dropdown-item">Logout</a>
+                    {{-- <a href="./settings.html" class="dropdown-item">Settings</a> --}}
+                    <a href="/proseslogoutadmin" class="dropdown-item">Logout</a>
+                    <a href="/pindahkeuser" class="dropdown-item">pindah ke user</a>
                 </div>
             </div>
         </div>

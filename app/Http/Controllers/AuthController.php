@@ -42,4 +42,11 @@ class AuthController extends Controller
             return redirect('/panel');
         }
     }
+
+    public function pindahkeuser(){
+        if(Auth::guard('user')->check()) {
+            Auth::guard('user')->logout();
+            return redirect('/');
+        }
+    }
 }
