@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 02, 2023 at 04:48 AM
+-- Generation Time: Dec 03, 2023 at 08:36 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `divisi` (
-  `kode_divisi` char(3) COLLATE utf8mb4_general_ci NOT NULL,
+  `kode_divisi` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nama_divisi` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -37,9 +37,10 @@ CREATE TABLE `divisi` (
 --
 
 INSERT INTO `divisi` (`kode_divisi`, `nama_divisi`) VALUES
-('IT', 'Teknologi Informasi'),
-('MJM', 'Manajemen'),
-('MKT', 'Marketing');
+('jabodetabek', 'jabodetabek'),
+('jawa_barat', 'jawa barat'),
+('jawa_tengah', 'jawa tengah'),
+('jawa_timur', 'jawa timur');
 
 -- --------------------------------------------------------
 
@@ -55,7 +56,7 @@ CREATE TABLE `karyawan` (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `remember_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `foto` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `kode_divisi` char(3) COLLATE utf8mb4_general_ci NOT NULL
+  `kode_divisi` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -63,10 +64,10 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`nik`, `nama_lengkap`, `jabatan`, `no_hp`, `password`, `remember_token`, `foto`, `kode_divisi`) VALUES
-('12345', 'zaki123', 'driver', '08123456789', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, '12345.png', 'IT'),
-('6789', 'latip', 'driver', '08987654321', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'IT'),
-('123', '123', 'driver', '081111111111', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'MKT'),
-('1112', 'citra', 'IT', '082222222', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'IT');
+('12345', 'zaki123', 'driver', '08123456789', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, '12345.png', 'jawa_barat'),
+('6789', 'latip', 'driver', '08987654321', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'jawa_timur'),
+('123', '123', 'driver', '081111111111', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'jabodetabek'),
+('1112', 'citra', 'IT', '082222222', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'jawa_tengah');
 
 -- --------------------------------------------------------
 
@@ -87,17 +88,6 @@ CREATE TABLE `presensi` (
   `keterangan_in` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `keterangan_out` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `presensi`
---
-
-INSERT INTO `presensi` (`id`, `nik`, `tgl_presensi`, `jam_in`, `jam_out`, `foto_in`, `foto_out`, `lokasi_in`, `lokasi_out`, `keterangan_in`, `keterangan_out`) VALUES
-(NULL, '12345', '2023-11-27', '18:27:38', '22:32:27', '12345-2023-11-27-18-27-38.png', '12345-2023-11-27-22-32-27.png', '-6.2193301,106.8384543', '-6.2193301,106.8384543', NULL, NULL),
-(NULL, '12345', '2023-11-28', '11:48:38', '11:48:54', '12345-2023-11-28-11-48-38.png', '12345-2023-11-28-11-48-54.png', '-6.2801385,107.0121592', '-6.2801385,107.0121592', NULL, NULL),
-(NULL, '12345', '2023-11-29', '13:18:31', '16:01:03', '12345-2023-11-29-13-18-31.png', '12345-2023-11-29-16-01-03.png', '-6.2801555,107.012161', '-6.2801489,107.0121645', NULL, NULL),
-(NULL, '12345', '2023-12-01', '08:20:03', '08:28:02', '12345-2023-12-01-08-20-03.png', '12345-2023-12-01-08-28-02.png', '-6.2193256,106.8384605', '-6.2193299,106.838461', NULL, NULL),
-(NULL, '123', '2023-12-01', '14:19:55', '14:20:06', '123-2023-12-01-14-19-55.png', '123-2023-12-01-14-20-06.png', '-6.2193276,106.8384609', '-6.2193276,106.8384609', NULL, NULL);
 
 -- --------------------------------------------------------
 
