@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class karyawanController extends Controller
 {
@@ -38,5 +40,42 @@ class karyawanController extends Controller
             $sapa = 'Selamat Malam';
         }
         return view('karyawan.index', compact('sapa', 'karyawan', 'divisi'));
+    }
+
+    public function store(Request $request){
+        $nik = $request->nik;
+        $nama_lengkap = $request->nama_lengkap;
+        $jabatan = $request->jabatan;
+        $no_hp = $request->no_hp;
+        $kode_divisi = $request->kode_divisi;
+        $password = Hash::make('12345');
+        if ($request->hasFile('foto')) {
+            $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = null;
+        };
+
+        try {
+            $data = [
+                'nik' => $nik,
+                'nama_lengkap' => $nama_lengkap,
+                'jabatan' => $jabatan,
+                'no_hp' => $no_hp,
+                'kode_divisi' => $kode_divisi,
+                'foto' => $foto,
+                'password' => $password
+            ];
+            $simpan = DB::table('karyawan')->insert($data);
+            if ($simpan) {
+                if ($request->hasFile('foto')) {
+                    $folderPath = "public/uploads/karyawan";
+                    $request->file('foto')->storeAs($folderPath, $foto);
+                }
+                return Redirect::back()->with(['success' => 'data berhasil disimpan']);
+            }
+        } catch (\Exception $e) {
+            // dd($e->message);
+            return Redirect::back()->with(['success' => 'data gagal disimpan']);
+        }
     }
 }

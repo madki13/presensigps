@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 03, 2023 at 08:36 AM
+-- Generation Time: Dec 03, 2023 at 12:32 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -67,7 +67,10 @@ INSERT INTO `karyawan` (`nik`, `nama_lengkap`, `jabatan`, `no_hp`, `password`, `
 ('12345', 'zaki123', 'driver', '08123456789', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, '12345.png', 'jawa_barat'),
 ('6789', 'latip', 'driver', '08987654321', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'jawa_timur'),
 ('123', '123', 'driver', '081111111111', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'jabodetabek'),
-('1112', 'citra', 'IT', '082222222', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'jawa_tengah');
+('1112', 'citra', 'IT', '082222222', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'jawa_tengah'),
+('1969', 'ibnu', 'manager', '08765682', '$2y$10$VUtpSPpcuq8n/NfsiPBsgu9yQ8r3Ab1dL9qtVV1dHXGXyIzTtF34G', NULL, NULL, 'jabodetabek'),
+('12345', 'tes1', 'driver', '08123123123', '$2y$10$vfDhAOaRJsGmRldFotvtLOjCiYR9bsiz.dE7tDuvscScdIZu8/GLW', NULL, NULL, 'jabodetabek'),
+('321', 'asdas', 'driver', '081231231', '$2y$10$YSyXg1s2kv53WVcNE.Gx.OwsMwtVZHUTAE8.eE.F7FtN7p9dB.fzO', NULL, NULL, 'jawa_tengah');
 
 -- --------------------------------------------------------
 
