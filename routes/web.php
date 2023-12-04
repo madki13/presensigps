@@ -60,6 +60,9 @@ Route::middleware(['auth:user'])->group(function(){
     //karyawann
     Route::get('/karyawan', [karyawanController::class, 'index']);
     Route::post('/karyawan/store', [karyawanController::class, 'store']);
+    Route::post('/karyawan/edit', [karyawanController::class, 'edit']);
+    Route::post('/karyawan/{nik}/update', [karyawanController::class, 'update']);
+    Route::post('/karyawan/{nik}/delete', [karyawanController::class, 'delete']);
 
 
     //Presensi

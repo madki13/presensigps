@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class karyawanController extends Controller
 {
@@ -23,7 +24,8 @@ class karyawanController extends Controller
         if (!empty($request->kode_divisi)) {
             $query->where('karyawan.kode_divisi', $request->kode_divisi);
         }
-        $karyawan = $query->paginate(2);
+        //atur 1 halaman tampil berapa data
+        $karyawan = $query->paginate(5);
 
         $divisi = DB::table('divisi')->get();
         $sapa = "";
@@ -76,6 +78,61 @@ class karyawanController extends Controller
         } catch (\Exception $e) {
             // dd($e->message);
             return Redirect::back()->with(['success' => 'data gagal disimpan']);
+        }
+    }
+
+    public function edit(Request $request) {
+        $nik = $request->nik;
+        $divisi = DB::table('divisi')->get();
+        $karyawan = DB::table('karyawan')->where('nik', $nik)->first();
+        return view('karyawan.edit', compact('divisi', 'karyawan'));
+    }
+
+    public function update($nik, Request $request){
+        $nik = $request->nik;
+        $nama_lengkap = $request->nama_lengkap;
+        $jabatan = $request->jabatan;
+        $no_hp = $request->no_hp;
+        $kode_divisi = $request->kode_divisi;
+        $password = Hash::make('12345');
+        $old_foto = $request->old_foto;
+        if ($request->hasFile('foto')) {
+            $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = $old_foto;
+        };
+
+        try {
+            $data = [
+                'nama_lengkap' => $nama_lengkap,
+                'jabatan' => $jabatan,
+                'no_hp' => $no_hp,
+                'kode_divisi' => $kode_divisi,
+                'foto' => $foto,
+                'password' => $password
+            ];
+            $update = DB::table('karyawan')->where('nik', $nik)->update($data);
+            if ($update) {
+                if ($request->hasFile('foto')) {
+                    $folderPath = "public/uploads/karyawan";
+                    $folderPathOld = "public/uploads/karyawan" . $old_foto;
+                    Storage::delete($folderPathOld);
+                    $request->file('foto')->storeAs($folderPath, $foto);
+                }
+                return Redirect::back()->with(['success' => 'data berhasil diupdate']);
+            }
+        } catch (\Exception $e) {
+            // dd($e->message);
+            return Redirect::back()->with(['success' => 'data gagal diupdate']);
+        }
+    }
+
+    public function delete($nik) {
+        $delete = DB::table('karyawan')->where('nik', $nik)->delete();
+        if ($delete) {
+            return Redirect::back()->with(['success' => 'data berhasil dihapus']);
+        }else{
+            return Redirect::back()->with(['success' => 'data gagal diupdate']);
         }
     }
 }

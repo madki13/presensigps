@@ -36,8 +36,19 @@
             <div class="webcam-capture"></div>
         </div>
     </div>
+
     <div class="row">
         <div class="col">
+            <div>
+                <center>Nama Lokasi</center>
+            </div>
+            <input type="text" id="keterangan" name="keterangan" placeholder="Isi nama lokasi" style='width:100%'>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
             @if ($cek > 0)
                 <button id="takeabsen" class="btn btn-danger btn-block">
                     <ion-icon name="camera-outline"></ion-icon>
@@ -127,9 +138,11 @@
                 data: {
                     _token: "{{ csrf_token() }}",
                     image: image,
-                    lokasi: lokasi
+                    lokasi: lokasi,
+                    keterangan: keterangan
                 },
                 cache: false,
+
                 success: function(respond) {
                     var status = respond.split("|");
                     if (status[0] == "success") {
