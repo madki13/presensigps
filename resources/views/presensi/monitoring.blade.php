@@ -38,8 +38,27 @@
                                             </svg>
                                         </span>
                                         <input type="text" id="tanggal" name="tanggal" value=""
-                                            class="form-control" placeholder="Tanggal Presensi">
+                                            class="form-control" placeholder="Tanggal Presensi" autocomplete="off">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nik</th>
+                                                <th>Nama Karyawan</th>
+                                                <th>Departemen</th>
+                                                <th>Jam Masuk</th>
+                                                <th>Foto</th>
+                                                <th>Jam Pulang</th>
+                                                <th>Foto</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="loadpresensi"></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -50,13 +69,30 @@
     </div>
 @endsection
 @push('myscript')
-    <script>
-        $(function() {
-            $("#datepicker").datepicker({
-                autoclose: true,
-                todayHighlight: true
-            });
+<script>
+$(function () {
+  $('#tanggal').datepicker({
+    autoclose: true,
+    todayHighlight: true,
+    format: 'yyyy-mm-dd'
+  });
 
-        });
-    </script>
+  $('#tanggal').change(function(e){
+      var tanggal = $(this).val();
+      $.ajax({
+          type: 'POST',
+          url: '/getpresensi',
+          data:{
+              _token: "{{ csrf_token() }}",
+              tanggal: tanggal
+          },
+          cache:false,
+          success:function(respond){
+              $("#loadpresensi").html(respond);
+          }
+      });
+    });
+    
+});
+</script>
 @endpush
