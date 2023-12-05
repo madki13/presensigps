@@ -26,8 +26,8 @@ class PresensiController extends Controller
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         $jam_image = date("H-i-s");
-        $latitudekantor = -6.193335474147274;
-        $longitudekantor = 106.84939440391909;
+        $latitudekantor = -6.219308315968058;
+        $longitudekantor =  106.83846397520225;
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
         $latitudeuser = $lokasiuser[0];
@@ -38,29 +38,30 @@ class PresensiController extends Controller
         $keterangan = $request->keterangan;
         $image = $request->image;
         $folderPath = "public/uploads/absensi/";
-        $formatName = $nik . "-" . $tgl_presensi . "-" . $jam_image;
+        $formatName = $nik . "-" . $tgl_presensi . ".jam" . $jam_image;
         $image_parts = explode(";base64", $image);
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = $formatName . ".png";
         $file = $folderPath . $fileName;
 
-        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik)->count();
 
+        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik)->count();
         // if ($cek > 0) {
         //     $ket = "out";
         // } else {
         //     $ket = "in";
         // }
 
-        if ($radius > 20        ) {
-            echo "error| Maaf anda berada diluar radius, jarak anda " . $radius ." meter dari kantor |";
+        if ($radius > 20) {
+            echo "error| Maaf anda berada diluar radius, jarak anda " . $radius . " meter dari kantor |";
         } else {
 
             if ($cek > 0) {
                 $data_pulang = [
                     'jam_out' => $jam,
                     'foto_out' => $fileName,
-                    'lokasi_out' => $lokasi
+                    'lokasi_out' => $lokasi,
+                    'keterangan_out' => $keterangan
                 ];
                 $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik)->update($data_pulang);
                 if ($update) {
@@ -75,7 +76,9 @@ class PresensiController extends Controller
                     'tgl_presensi' => $tgl_presensi,
                     'jam_in' => $jam,
                     'foto_in' => $fileName,
-                    'lokasi_in' => $lokasi
+                    'lokasi_in' => $lokasi,
+                    'keterangan_in' => $keterangan
+
                 ];
                 $simpan = DB::table('presensi')->insert($data);
                 if ($simpan) {
@@ -89,7 +92,7 @@ class PresensiController extends Controller
 
 
 
-        // // Untuk In Out
+        // Untuk In Out
         // $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik)->where('jam_out', $null)->count();
         // if($cek == 0){
         //     $data = [
@@ -122,7 +125,6 @@ class PresensiController extends Controller
         //         echo "error|Waduh ada masalah nih, hubungi IT guys !|out" ;
         //     }
         // }
-
     }
 
     //Menghitung Jarak
@@ -147,7 +149,8 @@ class PresensiController extends Controller
         return view('presensi.editprofile', compact('karyawan'));
     }
 
-    public function updateprofile(Request $request){
+    public function updateprofile(Request $request)
+    {
 
         $nik = Auth::guard('karyawan')->user()->nik;
         $nama_lengkap = $request->nama_lengkap;
@@ -159,18 +162,19 @@ class PresensiController extends Controller
         } else {
             $foto = $karyawan->foto;
         }
-        if(empty($request -> password )){
+        if (empty($request->password)) {
             $data = [
-            'nama_lengkap' => $nama_lengkap,
-            'no_hp' => $no_hp,
-            'foto' => $foto
-        ];
+                'nama_lengkap' => $nama_lengkap,
+                'no_hp' => $no_hp,
+                'foto' => $foto,
+
+            ];
         } else {
             $data = [
-            'nama_lengkap' => $nama_lengkap,
-            'no_hp' => $no_hp,
-            'password' => $password,
-            'foto' => $foto
+                'nama_lengkap' => $nama_lengkap,
+                'no_hp' => $no_hp,
+                'password' => $password,
+                'foto' => $foto,
             ];
         }
 
@@ -181,7 +185,7 @@ class PresensiController extends Controller
                 $request->file('foto')->storeAs($folderPath, $foto);
             }
             return Redirect::back()->with(['success' => 'Yey.. Data karyawan berhasil diubah ^_^']);
-        }else{
+        } else {
             return Redirect::back()->with(['error' => 'Yah.. Update datanya gagal ^_^!']);
         }
     }
