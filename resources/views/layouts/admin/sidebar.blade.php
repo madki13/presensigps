@@ -164,6 +164,9 @@
                   <a class="dropdown-item" href="/karyawan">
                     Data Karyawan
                   </a>
+                  {{-- <a class="dropdown-item" href="/divisi">
+                    Data Divisi
+                  </a> --}}
                 </div>
               </div>
             </div>
@@ -181,7 +184,7 @@
                 </svg>
               </span>
               <span class="nav-link-title">
-                Monitoring In / Out
+                Monitoring Presensi
               </span>
             </a>
           </li>

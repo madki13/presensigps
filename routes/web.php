@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
@@ -63,10 +64,16 @@ Route::middleware(['auth:user'])->group(function(){
     Route::post('/karyawan/edit', [karyawanController::class, 'edit']);
     Route::post('/karyawan/{nik}/update', [karyawanController::class, 'update']);
     Route::post('/karyawan/{nik}/delete', [karyawanController::class, 'delete']);
+    Route::get('/karyawan/{nik}/resetpassword', [karyawanController::class, 'resetpassword']);
+
 
 
     //Presensi
     Route::get('/presensi/monitoring', [PresensiController::class, 'monitoring']);
+
+    //divisi
+    Route::get('/divisi', [DivisiController::class,'index']);
+    Route::post('/divisi/store', [DivisiController::class,'store']);
 
 });
 
