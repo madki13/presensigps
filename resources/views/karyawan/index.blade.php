@@ -371,7 +371,7 @@
             $(".edit").click(function() {
                 var nik = $(this).attr('nik');
                 $.ajax({
-                    type: 'POST',
+                    type: 'POST' ,
                     url: '/karyawan/edit',
                     cache: false,
                     data: {
