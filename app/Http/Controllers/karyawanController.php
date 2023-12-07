@@ -83,7 +83,7 @@ class karyawanController extends Controller
     }
 
     public function edit(Request $request) {
-        $nik = $request->nik; 
+        $nik = $request->nik;
         $divisi = DB::table('divisi')->get();
         $karyawan = DB::table('karyawan')->where('nik', $nik)->first();
         return view('karyawan.edit', compact('divisi', 'karyawan'));
