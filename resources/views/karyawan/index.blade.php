@@ -132,11 +132,7 @@
                                                     <td>
                                                         <div class="d-flex">
                                                             <div>
-<<<<<<< Updated upstream
-                                                                <a href="#" id="edit" class="btn btn-info btn-sm"
-=======
                                                                 <a href="#" id="edit" class="edit btn btn-info btn-sm"
->>>>>>> Stashed changes
                                                                     nik="{{ $d->nik }}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                         class="icon icon-tabler icon-tabler-edit"
