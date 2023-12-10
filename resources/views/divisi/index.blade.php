@@ -101,7 +101,7 @@
                                                 <td>{{ $d->nama_divisi }}</td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="#" id="edit" class="btn btn-info btn-sm"
+                                                        <a href="#" id="edit" class="edit btn btn-info btn-sm"
                                                             kode_divisi="{{ $d->kode_divisi }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                 class="icon icon-tabler icon-tabler-edit" width="24"
@@ -264,7 +264,7 @@
                     url: '/divisi/edit',
                     cache: false,
                     data: {
-                        _token: "{{ csrf_token() }}",
+                        _token: "{{ csrf_token(); }}",
                         kode_divisi: kode_divisi
                     },
                     success: function(respond) {

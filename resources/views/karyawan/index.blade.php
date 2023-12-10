@@ -172,7 +172,7 @@
                                                                 <form action="/karyawan/{{ $d->nik }}/delete"
                                                                     style="margin-left:8px" method="POST">
                                                                     @csrf
-                                                                    <a class="btn btn-danger btn-sm delete-confirm">
+                                                                    <a class="delete-confirm btn btn-danger btn-sm ">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                                             class="icon icon-tabler icon-tabler-trash"
                                                                             width="24" height="24"

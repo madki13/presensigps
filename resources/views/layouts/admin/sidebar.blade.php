@@ -164,9 +164,9 @@
                   <a class="dropdown-item" href="/karyawan">
                     Data Karyawan
                   </a>
-                  {{-- <a class="dropdown-item" href="/divisi">
+                  <a class="dropdown-item" href="/divisi">
                     Data Divisi
-                  </a> --}}
+                  </a>
                 </div>
               </div>
             </div>

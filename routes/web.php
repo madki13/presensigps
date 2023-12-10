@@ -75,6 +75,10 @@ Route::middleware(['auth:user'])->group(function(){
     //divisi
     Route::get('/divisi', [DivisiController::class,'index']);
     Route::post('/divisi/store', [DivisiController::class,'store']);
+    Route::post('/divisi/edit', [DivisiController::class,'edit']);
+    Route::post('/divisi/{kode_divisi}/update', [DivisiController::class,'update']);
+    Route::post('/divisi/{kode_divisi}/delete', [DivisiController::class,'delete']);
+
 
 });
 
