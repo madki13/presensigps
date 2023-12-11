@@ -55,6 +55,7 @@
                                                 <th>Foto</th>
                                                 <th>Jam Pulang</th>
                                                 <th>Foto</th>
+                                                <th>Keterangan</th>
                                             </tr>
                                         </thead>
                                         <tbody id="loadpresensi"></tbody>
@@ -70,29 +71,29 @@
 @endsection
 @push('myscript')
 <script>
-$(function () {
-  $('#tanggal').datepicker({
-    autoclose: true,
-    todayHighlight: true,
-    format: 'yyyy-mm-dd'
-  });
+    $(function() {
+        $("#tanggal").datepicker({
+            autoclose:true,
+            todayHihlight:true,
+            format: 'yyyy-mm-dd'
+        });
 
-  $('#tanggal').change(function(e){
-      var tanggal = $(this).val();
-      $.ajax({
-          type: 'POST',
-          url: '/getpresensi',
-          data:{
-              _token: "{{ csrf_token() }}",
-              tanggal: tanggal
-          },
-          cache:false,
-          success:function(respond){
-              $("#loadpresensi").html(respond);
-          }
-      });
+        $("#tanngal").change(function(e) {
+            var tanggal = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '/getpresensi',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    tanggal: tanggal
+                },
+                cache:false,
+                success:function(respond) {
+                    $("#loadpresensi").html(respond);
+                }
+            });
+        });
     });
-    
-});
+
 </script>
 @endpush
