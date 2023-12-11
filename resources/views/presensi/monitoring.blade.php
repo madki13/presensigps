@@ -78,7 +78,7 @@
             format: 'yyyy-mm-dd'
         });
 
-        $("#tanngal").change(function(e) {
+        $("#tanggal").change(function(e) {
             var tanggal = $(this).val();
             $.ajax({
                 type: 'POST',

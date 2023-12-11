@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class PresensiController extends Controller
 {
@@ -29,6 +30,8 @@ class PresensiController extends Controller
         $tgl_laporan = date("Y-m-d");
         $jam = date("H:i:s");
         $jam_image = date("H-i-s");
+        $latitudekantor = -6.160672101205832;
+        $longitudekantor =  106.85904035020486;
         $lokasi = $request->lokasi;
         $keterangan = $request->keterangan;
         $image = $request->image;
@@ -159,9 +162,9 @@ class PresensiController extends Controller
                 $folderPath = "public/uploads/karyawan";
                 $request->file('foto')->storeAs($folderPath, $foto);
             }
-            return \Redirect::back()->with(['success' => 'Yey.. Data karyawan berhasil diubah ^_^']);
+            return Redirect::back()->with(['success' => 'Yey.. Data karyawan berhasil diubah ^_^']);
         } else {
-            return \Redirect::back()->with(['error' => 'Yah.. Update datanya gagal ^_^!']);
+            return Redirect::back()->with(['error' => 'Yah.. Update datanya gagal ^_^!']);
         }
     }
 
@@ -204,10 +207,10 @@ class PresensiController extends Controller
         }
         $tanggal = $request->tanggal;
         $presensi = DB::table('presensi')
-            ->select('presensi.*', 'nama_lengkap', 'nama_unker')
+            ->select('presensi.*', 'nama_lengkap', 'nama_divisi')
             ->join('karyawan', 'presensi.nik', '=', 'karyawan.nik')
-            ->join('unker', 'karyawan.kode_unker', '=', 'unker.kode_unker')
-            ->where('tgl_laporan', $tanggal)
+            ->join('divisi', 'karyawan.kode_divisi', '=', 'divisi.kode_divisi')
+            ->where('tgl_presensi', $tanggal)
             ->get();
 
         return view('presensi.getpresensi', compact('sapa', 'presensi'));

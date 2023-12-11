@@ -12,7 +12,7 @@ $foto_out = Storage::url('uploads/absensi/'.$d->foto_out);
     <td>
         <img src="{{ url($foto_in) }}" class="avatar" alt="">
     </td>
-    <td>{{!! $d->jam_out != null ? $d->jam_out : '<span class="badge bg-danger">Belum Absen Pulang</span>' !!}}</td>
+    <td>{!! $d->jam_out != null ? $d->jam_out : '<span class="badge bg-danger">Belum Absen Pulang</span>' !!}</td>
     <td>
         @if ($d->jam_out != null)
         <img src="{{ url($foto_out) }}" class="avatar" alt="">
