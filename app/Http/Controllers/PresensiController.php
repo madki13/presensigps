@@ -4,19 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 
 class PresensiController extends Controller
 {
     public function create()
     {
-        $hariini = date("Y-m-d");
+        // Untuk Absensi
+        $hari_ini = date("Y-m-d");
+        $jam = NULL;
         $nik = Auth::guard('karyawan')->user()->nik;
-        $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('nik', $nik)->count();
+        $cek = DB::table('presensi')->where('tgl_presensi', $hari_ini)->where('nik', $nik)->count();
         return view('presensi.create', compact('cek'));
+
+        // return view('presensi.create');
     }
 
     public function store(Request $request)
@@ -127,7 +131,6 @@ class PresensiController extends Controller
         // }
     }
 
-    //Menghitung Jarak
     function distance($lat1, $lon1, $lat2, $lon2)
     {
         $theta = $lon1 - $lon2;
@@ -149,8 +152,7 @@ class PresensiController extends Controller
         return view('presensi.editprofile', compact('karyawan'));
     }
 
-    public function updateprofile(Request $request)
-    {
+    public function updateprofile(Request $request){
 
         $nik = Auth::guard('karyawan')->user()->nik;
         $nama_lengkap = $request->nama_lengkap;
@@ -167,7 +169,6 @@ class PresensiController extends Controller
                 'nama_lengkap' => $nama_lengkap,
                 'no_hp' => $no_hp,
                 'foto' => $foto,
-
             ];
         } else {
             $data = [
@@ -190,6 +191,53 @@ class PresensiController extends Controller
         }
     }
 
+    public function monitoring()
+    {
+        $hari_ini = date("Y-m-d");
+        $hari = date("d");
+        $bulan_ini = date("m");
+        $tahun_ini = date("Y");
+        $sapa = "";
+        $time = date('H:i:s');
+        if ($time >= '03:00:00' && $time <= '10:00:59') {
+            $sapa = 'Selamat Pagi';
+            // $time_kerja = 'Masuk';
+        } elseif ($time >= '10:01:00' && $time <= '15:00:59') {
+            $sapa = 'Selamat Siang';
+            // $time_kerja = 'Pulang';
+        } elseif ($time >= '15:01:00' && $time <= '18:00:59') {
+            $sapa = 'Selamat Sore';
+        } else {
+            $sapa = 'Selamat Malam';
+        }
+        return view('presensi.monitoring', compact('sapa'));
+    }
+
+    public function getpresensi(Request $request)
+    {
+        $sapa = "";
+        $time = date('H:i:s');
+        if ($time >= '03:00:00' && $time <= '10:00:59') {
+            $sapa = 'Selamat Pagi';
+            // $time_kerja = 'Masuk';
+        } elseif ($time >= '10:01:00' && $time <= '15:00:59') {
+            $sapa = 'Selamat Siang';
+            // $time_kerja = 'Pulang';
+        } elseif ($time >= '15:01:00' && $time <= '18:00:59') {
+            $sapa = 'Selamat Sore';
+        } else {
+            $sapa = 'Selamat Malam';
+        }
+        $tanggal = $request->tanggal;
+        $presensi = DB::table('presensi')
+            ->select('presensi.*', 'nama_lengkap', 'nama_divisi')
+            ->join('karyawan', 'presensi.nik', '=', 'karyawan.nik')
+            ->join('divisi', 'karyawan.kode_divisi', '=', 'divisi.kode_divisi')
+            ->where('tgl_presensi', $tanggal)
+            ->get();
+
+        return view('presensi.getpresensi', compact('sapa', 'presensi'));
+    }
 
     public function histori()
     {
@@ -216,36 +264,5 @@ class PresensiController extends Controller
         $tahun = $request->tahun;
 
         echo $bulan . "dan" . $tahun;
-    }
-
-    public function monitoring()
-    {
-        $sapa = "";
-        $time = date('H:i:s');
-        if ($time >= '03:00:00' && $time <= '10:00:59') {
-            $sapa = 'Selamat Pagi';
-            // $time_kerja = 'Masuk';
-        } elseif ($time >= '10:01:00' && $time <= '15:00:59') {
-            $sapa = 'Selamat Siang';
-            // $time_kerja = 'Pulang';
-        } elseif ($time >= '15:01:00' && $time <= '18:00:59') {
-            $sapa = 'Selamat Sore';
-        } else {
-            $sapa = 'Selamat Malam';
-        }
-        return view('presensi.monitoring', compact('sapa'));
-    }
-
-    public function getpresensi(Request $request)
-    {
-        $tanggal = $request->tanggal;
-        $presensi =  DB::table('presensi')
-            ->select('presensi.*', 'nama_lengkap', 'nama_dept')
-            ->join('karyawan', 'presensi.nik', '=', 'karyawan.nik')
-            ->join('departemen', 'karyawan.kode_dept', '=', 'departemen.kode_dept')
-            ->where('tgl_presensi', $tanggal)
-            ->get();
-
-        return view('presensi.getpresensi', compact('presensi'));
     }
 }
